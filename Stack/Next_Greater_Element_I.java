@@ -21,7 +21,7 @@ public class Next_Greater_Element_I
         Stack<Integer> stack = new Stack<>();
         for(int i=nums2.length-1;i>=0;i--)     //Reverse Traversal on Parent array
         {
-            while(!stack.isEmpty() && stack.peek()<=nums2[i]){stack.pop();}  //pop if stack.pop is smaller
+            while( !stack.isEmpty() && stack.peek() <= nums2[i] )  {stack.pop();}  //pop if stack.pop is smaller
             if(stack.isEmpty()){map.put(nums2[i],-1);}
             else{map.put(nums2[i],stack.peek());}
             stack.push(nums2[i]);

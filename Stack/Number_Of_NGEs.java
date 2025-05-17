@@ -5,20 +5,21 @@ import java.util.Stack;
 
 public class Number_Of_NGEs {
     public static void main(String[] args) {
-        int[] query = {1, 4, 2};
+        int[] queryIndices = {1, 4, 2};
         int[] arr2 = {1, 2, 3, 4, 44, 5, 666, 77778, 88888};
-        System.out.println(Arrays.toString(amountOfNGEs(query, arr2)));
+        System.out.println(Arrays.toString(amountOfNGEs(queryIndices, arr2)));
     }
 
     public static int[] amountOfNGEs(int[] indices, int[] arr) {
         Stack<Integer> stack = new Stack<>();
-        int[] map = new int[arr.length]; // To store the count of NGEs for each index
-        int[] result = new int[indices.length]; // To store the result for the specified indices
+        int[] map = new int[arr.length];                        // To store the count of NGEs for each index
+        int[] result = new int[indices.length];                 // To store the result for the specified indices
 
-        // Traverse the array from right to left
-        for (int i = arr.length - 1; i >= 0; i--) {
-            // Pop elements from the stack that are less than or equal to the current element
-            while (!stack.isEmpty() && stack.peek() <= arr[i]) {
+        for (int i = arr.length - 1; i >= 0; i--)                   // Traverse the array from right to left
+        {
+            while (!stack.isEmpty() && stack.peek() <= arr[i])         // Pop elements from the stack that are less than or equal to the current element
+
+            {
                 stack.pop();
             }
             // The size of the stack is the number of elements strictly greater than arr[i] to its right

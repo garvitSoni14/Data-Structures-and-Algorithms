@@ -9,7 +9,7 @@ public class Asteroid_Collision
     public static void main(String[] args)
     {
         int [] arr={10,2,-5};
-        System.out.println(Asteroid_Col(arr));
+        System.out.println(Arrays.toString(Asteroid_Col(arr)));
     }
 
     public static int[] Asteroid_Col(int [] asteroid)
@@ -17,9 +17,9 @@ public class Asteroid_Collision
         Stack<Integer> stack = new Stack<>();
         for(int i=0; i<asteroid.length; i++)
         {
-            if(asteroid[i]>0) stack.push(asteroid[i]);
+            if( asteroid[i]>0 ) stack.push(asteroid[i]);
             else {
-                while(!stack.isEmpty() && stack.peek()<Math.abs(asteroid[i]) && stack.peek()>0)
+                while( !stack.isEmpty() && stack.peek() < Math.abs(asteroid[i]) && stack.peek()>0 )
                 {
                     stack.pop();
                 }
