@@ -1,3 +1,7 @@
+/*
+SELECTION SORT says that -
+Find the minimum element from the unsorted portion of the array and swap it with the first element of the unsorted portion
+ */
 package Sorting;
 import java.util.Arrays;
 
@@ -12,7 +16,7 @@ public class Selection_Sort
 
    public static int[] selection_sort(int[] arr)
    {
-       for(int i=0; i < arr.length-1; i++)
+       for(int i=0; i < arr.length-2; i++)    // not iterating for the last element because it will be sorted automatically if rest of the elements are in correct position.
        {
            int minIndex =i;
            for(int j=i+1; j < arr.length; j++)
@@ -22,7 +26,6 @@ public class Selection_Sort
            int temp = arr[i];
            arr[i] = arr[minIndex];
            arr[minIndex] = temp;
-
        }
        return arr;
    }
@@ -31,7 +34,6 @@ public class Selection_Sort
 
 
 /*
-Selection Sort finds the smallest element and swaps it to its correct position, repeating this until the array is sorted.
 
 Steps:
 1. Loop through the array from index i = 0 to n - 2:

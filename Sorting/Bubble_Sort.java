@@ -1,3 +1,7 @@
+/*
+BUBBLE SORT says that:
+From start -> end, repeatedly swaps adjacent elements if they are unsorted, pushing the largest unsorted element to its correct position (in the end) in each pass.
+ */
 package Sorting;
 
 import java.util.Arrays;
@@ -34,8 +38,6 @@ public class Bubble_Sort {
 }
 
 /*
-Bubble Sort repeatedly swaps adjacent elements if they are unsorted, pushing the largest unsorted element to its correct position (in the end) in each pass.
-
 Steps:
 
 1. Loop through the array fron i=0 to n-2 (till last second element):

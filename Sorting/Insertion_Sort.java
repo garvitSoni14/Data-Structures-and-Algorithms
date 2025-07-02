@@ -1,3 +1,7 @@
+/*
+INSERTION SORT says that:
+For each element, shift all larger elements to its right (by swapping) and insert the current element at its correct sorted position.
+ */
 package Sorting;
 
 import java.util.Arrays;
@@ -29,7 +33,6 @@ public class Insertion_Sort
 }
 
 /*
-Picking an element and inserting it on its place by shifting othes
 Steps:
 
 1. Run a for loop from i=0 to n-1 (till last element):
