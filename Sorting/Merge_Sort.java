@@ -1,3 +1,7 @@
+/*
+MERGE SORT says that:
+Divide the array in two parts, compare elements of the two parts simultaneously, place them in a sorted manner using a temporary array. Do the division until array becomes of single element.
+ */
 package Sorting;
 
 import java.util.Arrays;
@@ -7,49 +11,48 @@ public class Merge_Sort {
     public static void main(String[] args) {
 
         int[] a = {64, 25, 12, 22, 11};
-        divide(a,0,a.length-1);
+        mergeSort(a,0,a.length-1);
         System.out.println(Arrays.toString(a));
 
     }
 
-    public static void divide (int[] arr, int si, int ei)
+    public static void mergeSort (int[] arr, int start, int end)
     {
-        if (si >= ei) return;
-        int mid = si + (ei - si) / 2;
-        divide(arr,si, mid);
-        divide(arr, mid+1,ei);
-        conquer(arr, si, mid, ei);
+        if (start >= end) return;
+        int mid = start + (end - start) / 2;
+        mergeSort(arr,start, mid);
+        mergeSort(arr, mid+1,end);
+        conquer(arr, start, mid, end);
     }
 
-    public static void conquer(int [] arr, int si, int mid, int ei)
+    public static void conquer(int [] arr, int start, int mid, int end)
     {
-        int i= ei-si+1;
-        int [] mergedArray = new int[i];
-        int index1 = si;
-        int index2 = mid+1;
-        int x=0;
-        while(index1<=mid && index2<=ei) {
-            if (arr[index1] <= arr[index2]) {
-                mergedArray[x++] = arr[index1++];
+        int i= end-start+1;                      // Deciding the size of the array to store merged and sorted elements.
+        int [] mergedArray = new int[i];             // Initializing the array to store merged and sorted elements.
+
+        int left = start;
+        int right = mid+1;
+        int x=0;                                 // pointer for the mergedArray
+        while(left <= mid && right <= end)
+        {
+            if (arr[left] <= arr[right]) {
+                mergedArray[x++] = arr[left++];
             } else {
-                mergedArray[x++] = arr[index2++];
+                mergedArray[x++] = arr[right++];
             }
         }
-             while(index1<=mid)
-             {
-                 mergedArray[x++] = arr[index1++];
-             }
-            while(index2<=ei)
-            {
-                mergedArray[x++] = arr[index2++];
-            }
-
-            for(int z=0,j=si; z< mergedArray.length;z++,j++)
-            {
-                arr[j] = mergedArray[z];
-            }
-
-
+        while(left<=mid)
+        {
+            mergedArray[x++] = arr[left++];
+        }
+        while(right<=end)
+        {
+            mergedArray[x++] = arr[right++];
+        }
+        for(int z=0,j=start; z < mergedArray.length;z++,j++)
+        {
+            arr[j] = mergedArray[z];
+        }
     }
 }
 

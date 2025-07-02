@@ -1,3 +1,9 @@
+/*
+QUICK SORT says that:
+Pick an element as Pivot (it can be any number- start/end/mid..., end element in out algorithm),
+move all elements which are smaller than the Pivot element to the left and larger elements to the right.
+Do this recursively for both partitions until there is only one element left in the last partition.
+ */
 package Sorting;
 
 import java.util.Arrays;
@@ -11,28 +17,32 @@ public class Quick_Sort {
         System.out.println(Arrays.toString(a));
     }
 
-    public static void quick_sort(int[] arr, int si, int ei)
+    public static void quick_sort(int[] arr, int start, int end)
     {
-        if(si<ei)
+        if(start<end)
         {
-            int pivot = partition(arr, si, ei);
-            quick_sort(arr,si,pivot-1);
-            quick_sort(arr, pivot+1, ei);
+            int pivot = partition(arr, start, end);
+            quick_sort(arr,start,pivot-1);
+            quick_sort(arr, pivot+1, end);
 
         }
     }
-    public static int partition(int [] arr, int si, int ei) {
-        int index = si - 1;
-        int pivot = arr[ei];
-        for (int j = si; j < ei; j++) {
-            if (arr[j] <= pivot) {
+    public static int partition(int [] arr, int start, int end) {
+        int index = start - 1;
+        int pivotElement = arr[end];
+        for (int j = start; j <= end-1; j++) {
+            if (arr[j] <= pivotElement) {
                 index++;
-                swap(arr, j, index);
+                int temp = arr[index];
+                arr[index] = arr[j];
+                arr[j] = temp;
             }
 
         }
         index++;
-        swap(arr, ei, index);
+        int temp = arr[index];
+        arr[index] = arr[end];
+        arr[end] = temp;
         return index;
     }
 
@@ -61,6 +71,31 @@ Steps:
     10. swap index with ending index.
     11 return index ( partitioning element ).
 
-TC: O( N log N )
-SC: O( N )
+TC:
+Best and Average Cases: O( N Log N):
+    If the pivot divides the array into two equal halves every time:
+                n   -> Total elements to sort
+               / \
+             n/2  n/2  -> Two subproblems
+            / \   / \
+         n/4 n/4 ...and so on
+    At each level: work = O(n) (partitioning the entire array)
+    Number of levels = log n (because array size gets halved each time)
+
+WorstCase: O(n^2) :
+    If the pivot is always the smallest or largest element:
+    One part will have 0 elements
+    The other will have n-1 elements
+                n
+               /
+             n-1
+             /
+           n-2
+    The array is already sorted (ascending or descending).
+    The pivot choice is always bad (like always choosing the last element, as in your code).
+SC: O( 1 )
+    Every recursive call adds a new function to the call stack, which takes space.Best Case Space Complexity: O(log n)
+    If the pivot divides the array evenly every time:
+    Depth of recursion = log n
+    So, only log n recursive calls are on the call stack at any time.
  */
