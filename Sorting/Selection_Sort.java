@@ -18,7 +18,7 @@ public class Selection_Sort
    {
        for(int i=0; i < arr.length-2; i++)    // not iterating for the last element because it will be sorted automatically if rest of the elements are in correct position.
        {
-           int minIndex =i;
+           int minIndex = i;
            for(int j=i+1; j < arr.length; j++)
            {
                if(arr[j] < arr[minIndex]) minIndex = j;
