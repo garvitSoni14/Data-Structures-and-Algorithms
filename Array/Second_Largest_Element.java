@@ -1,3 +1,7 @@
+//BRUTE FORCE: (ARRAY WITHOUT DUPLICATES) Sort the array and return last second element [arr.length-2]. TC: O(n logn)+O(1), SC: O(n)
+//BETTER APPROACH: Traverse separately for finding largest and second-largest elements. TC: O(2n), SC:(1)
+//OPTIMAL APPROACH: Traverse only once and if an element is bigger than largestElement, update secondLargest and largestElement.
+    // Then check if a number bigger than secondLargest and smaller than largestElement exists to update second largest.
 package Array;
 
 import java.util.Scanner;
@@ -38,3 +42,6 @@ public class Second_Largest_Element
         return secondLargest;
     }
 }
+
+//TC: O(n)
+//SC: O(1)

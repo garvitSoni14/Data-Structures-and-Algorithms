@@ -1,3 +1,4 @@
+// APPROACH: Traverse the whole array for once and check if the current element is qual to desired one , and return if exists otherwise -1.
 package Array;
 
 public class Linear_Search
@@ -21,3 +22,6 @@ public class Linear_Search
         return -1;
     }
 }
+
+// TC: O(n)
+// SC:O(1)

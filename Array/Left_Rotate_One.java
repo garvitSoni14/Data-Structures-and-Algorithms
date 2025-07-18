@@ -1,3 +1,5 @@
+// BRUTE FORCE: Store the first element in temp, create anew array and store rest of theelements in it from start, in the end put the temp element in it. TC: O(n), SC: O(n)
+// OPTIMAL APPROACH:  store first element in a temp, shift all elements to the left by one index from index 1 , and place temp in the last of array.
 package Array;
 
 import java.util.Arrays;
@@ -30,4 +32,7 @@ public class Left_Rotate_One
         arr[arr.length-1] = first;
     }
 }
+
+// TC: O(n)
+// SC: O(1)
 

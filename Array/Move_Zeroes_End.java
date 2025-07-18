@@ -1,3 +1,5 @@
+// BRUTE FORCE: Traverse the array and store all its non zero elements into a new array and return new array. TC:O(n), SC: O(n)
+// OPTIMAL APPROACH: Use two pointers (i,j) initially pointing to first element, if j!=0 and i and j are not pointing to same element, swap them.
 package Array;
 
 import java.util.Arrays;
@@ -22,24 +24,21 @@ public class Move_Zeroes_End
     }
 
 
-    public static void  moveZeroesToEnd(int arr[])
- {
-     int i = 0;
-     for(; i<arr.length; i++)
-     {
-         if(arr[i]==0)
-         {
-             break;
-         }
-     }
-     for(int j=i+1;j<arr.length;j++)
-     {
-         if (arr[j] != 0)
-         {
-             arr[i] = arr[j];
-             arr[j]=0;
-             i++;
-         }
-     }
- }
+    public static void moveZeroesToEnd(int [] arr){
+        int i=0; int j=0;
+        while(j<arr.length){
+            if(arr[j]!=0) {
+                if(i!=j){
+                    System.out.println("Swapped " + arr[i]+" with "+ arr[j]);
+                    int temp = arr[i];
+                    arr[i]=arr[j];
+                    arr[j] = temp;
+                }
+                i++;
+            }
+            j++;
+        }
+    }
 }
+// TC: O(n)
+// SC: O(1)
