@@ -1,3 +1,6 @@
+// BRUTE FORCE: Generate all possible sub-arrays, and return the subarray(j-i+1) whose sum==k and length is MaximumTC: O(n^3), SC: O(1)
+// BETTER BRUTE FORCE: Generate all possible subarrays fron i=0(j=i)...and if currentSum==k, return max len with currentSum==k. TC: O(n^2), SC: O(1)
+// OPTIMAL APPROACH: Store all prefix sums from 0 to n in HashMao, if current prefixSum==k, maxlength=i+1, if current prefixSum>k, find prevIndex of (prefixSum-k) in map, and put max of (maxLength , i-prevIndex)and return it.
 package Array;
 
 import java.util.HashMap;
@@ -15,26 +18,25 @@ public class Max_SubArray_KSumPandN
 
     public static int kSumSubarray(int arr[],int k)
     {
-        int sum=0,maxlen=0;
-        Map<Integer, Integer> prefixSumMap = new HashMap<>();
-        for(int i=0; i<arr.length; i++)
-        {
-            sum +=arr[i];
-            if(sum==k)
-            {
-                maxlen = Math.max(maxlen, i+1);
+        HashMap<Integer, Integer> mp = new HashMap<>();
+        int prefixSum=0, maxlength=0;
+        for(int i=0; i<arr.length; i++){
+            prefixSum+=arr[i];
+
+            if(prefixSum==k){
+                maxlength = i+1;
             }
-            int rem = sum-k;
-            if(prefixSumMap.containsKey(rem))
-            {
-                int len = i-prefixSumMap.get(rem);
-                maxlen = Math.max(maxlen, len);
+            if(mp.containsKey(prefixSum-k)){
+                int prevIndex = mp.get(prefixSum-k);
+                maxlength = Math.max(maxlength, i-prevIndex);
             }
-            if(!prefixSumMap.containsKey(sum))
-            {
-                prefixSumMap.put(sum,i);
+            if( !mp.containsKey(prefixSum)){
+                mp.put(prefixSum,i);
             }
         }
-    return maxlen;
+        return maxlength;
     }
 }
+
+// TC: O(n)
+// SC: O(n)

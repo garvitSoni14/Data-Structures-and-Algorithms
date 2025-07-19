@@ -51,7 +51,6 @@ public class Union_Of_Arrays {
 
         return union;
 
-
     }
 
 }
