@@ -1,3 +1,6 @@
+// BRUTEFORCE: For each element of the array, traverse whole array to count its occurence and if the count > n/2, return the element. TC: O(n^2), SC: O(1).
+// BETTER APPROACH:  Store the frequency of every unique element in a HashMap and return the element with frequency > n/2. TC: O(n), SC:O(n).
+// OPTIMAL APPROACH: (MOORE's VOTING ALGORITHM): Traverse whole array and get the element which is occuring very frequently, Traverse again toget the count of that frequently occuring element. Now if count > n/2, return element else -1.
 package Array;
 
 import java.util.HashMap;
@@ -8,6 +11,7 @@ public class Majority_Nby2 {
         System.out.println(majority(sample));
     }
 
+    // Moore's voting algorithm........
     public static int majority(int [] arr){
         int count=0, element=0;
         for(int i=0; i< arr.length; i++){
@@ -24,6 +28,8 @@ public class Majority_Nby2 {
         if(count1 > arr.length/2) return element;
         return -1;
     }
+// TC: O(n)
+// SC: O(1)
 
     public static int majority_BETTER(int [] arr){
         HashMap<Integer, Integer> mp = new HashMap<>();
