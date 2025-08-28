@@ -29,7 +29,7 @@ Welcome to my **Data Structures & Algorithms (DSA)** repository! This is your on
 | Queue                    | ✔️ Completed   | [View](./queue)                 |
 | Sliding Window           | ✔️ Completed   | [View](./queue)                 |
 | Heaps                    | ⏳ Coming Soon | [View](./heap )                 |
-| Greedy                   | ⏳ Coming Soon | [View](./greedy)                |
+| Greedy                   | 🟡 In Progress | [View](./greedy)                |
 | Trees & Binary Trees     | ⏳ Coming Soon | [View](./trees)                 |
 | Binary Search Trees      | ⏳ Coming Soon | [View](./trees)                 |
 | Graphs                   | ⏳ Coming Soon | [View](./graphs)                |
