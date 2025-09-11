@@ -1,11 +1,11 @@
 package Heap;
 
-public class MaxHeap {
+public class MinHeap {
     int [] heap;
     int size;
     int capacity;
 
-    public MaxHeap(int capacity){
+    public MinHeap(int capacity){
         this.capacity =capacity;
         this.heap = new int[capacity];
         this.size = 0;
@@ -26,7 +26,7 @@ public class MaxHeap {
         heap[j] = temp;
     }
     private void shiftUp(int i){
-        while(i>0 && heap[parent(i)]<heap[i]){
+        while(i>0 && heap[parent(i)]>heap[i]){
             swap(parent(i), i);
             i =parent(i);
         }
@@ -41,31 +41,31 @@ public class MaxHeap {
         shiftUp(size-1);
     }
     private void shiftDown(int i){
-        int maxIndex = i;
+        int minIndex = i;
         int l = leftChild(i);
         int  r = rightChild(i);
-        if(l<size && heap[l]>heap[maxIndex]){
-            maxIndex = l;
+        if(l<size && heap[l]<heap[minIndex]){
+            minIndex = l;
         }
-        if(r<size && heap[r]>heap[maxIndex]){
-            maxIndex = r;
+        if(r<size && heap[r]<heap[minIndex]){
+            minIndex = r;
         }
-        if(i!=maxIndex){
-            swap(i, maxIndex);
-            shiftDown(maxIndex);
+        if(i!=minIndex){
+            swap(i, minIndex);
+            shiftDown(minIndex);
         }
     }
 
-    public int extractMax(){
+    public int extractMin(){
         if(size == 0){
             System.out.println("heap is empty");
             return -1;
         }
-        int max = heap[0];
+        int min = heap[0];
         heap[0] = heap[size-1];
         size--;
         shiftDown(0);
-        return max;
+        return min;
     }
 
     public int peek(){
@@ -77,7 +77,27 @@ public class MaxHeap {
             return heap[0];
         }
     }
-    public void buildHeap(int[] arr) { heap = arr; size = arr.length; capacity = arr.length; for (int i = (size / 2) - 1; i >= 0; i--) { shiftDown(i); } }
+    public void buildHeap(int[] arr) {
+        heap = arr;
+        size = arr.length;
+        capacity = arr.length;
+        for (int i = (size / 2) - 1; i >= 0; i--)
+        {
+            shiftDown(i);
+        }
+    }
 
-    public static void main(String[] args){ MaxHeap maxHeap = new MaxHeap(10); maxHeap.insert(10); maxHeap.insert(20); maxHeap.insert(15); maxHeap.insert(30); System.out.println("Max: "+ maxHeap.peek()); System.out.println("Extract max: "+ maxHeap.extractMax()); System.out.println("New max: "+ maxHeap.peek()); int[] arr = {5, 3, 17, 10, 84, 19, 6, 22, 9}; maxHeap.buildHeap(arr); System.out.println("Built Heap Max: " + maxHeap.peek());  }
+    public static void main(String[] args){
+        MinHeap minHeap = new MinHeap(10);
+        minHeap.insert(10);
+        minHeap.insert(20);
+        minHeap.insert(15);
+        minHeap.insert(30);
+        System.out.println("Min: "+ minHeap.peek());
+        System.out.println("Extract min: "+ minHeap.extractMin());
+        System.out.println("New min: "+ minHeap.peek());
+        int[] arr = {5, 3, 17, 10, 84, 19, 6, 22, 9};
+        minHeap.buildHeap(arr);
+        System.out.println("Built Heap Min: " + minHeap.peek());
+    }
 }
