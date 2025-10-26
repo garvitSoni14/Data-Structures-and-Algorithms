@@ -1,3 +1,6 @@
+// Approach: Reverse traverse: if the current Roman Symbol is smaller than previous roman symbol,
+// then its value will be subtracted from previous(bigger) value.
+// Other wise the current Roman Symbol's value will be added to the answer. TC: O(n), SC: O(1)
 package String;
 
 public class RomanToInteger

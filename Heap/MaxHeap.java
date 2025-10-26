@@ -68,6 +68,8 @@ public class MaxHeap {
         return max;
     }
 
+
+
     public int peek(){
         if(size==0){
             System.out.println("heap is empty");
@@ -77,7 +79,28 @@ public class MaxHeap {
             return heap[0];
         }
     }
-    public void buildHeap(int[] arr) { heap = arr; size = arr.length; capacity = arr.length; for (int i = (size / 2) - 1; i >= 0; i--) { shiftDown(i); } }
+    public void buildHeap(int[] arr) {
+        heap = arr;
+        size = arr.length;
+        capacity = arr.length;
+        for (int i = (size / 2) - 1; i >= 0; i--) {
+            shiftDown(i);
+        }
+    }
 
-    public static void main(String[] args){ MaxHeap maxHeap = new MaxHeap(10); maxHeap.insert(10); maxHeap.insert(20); maxHeap.insert(15); maxHeap.insert(30); System.out.println("Max: "+ maxHeap.peek()); System.out.println("Extract max: "+ maxHeap.extractMax()); System.out.println("New max: "+ maxHeap.peek()); int[] arr = {5, 3, 17, 10, 84, 19, 6, 22, 9}; maxHeap.buildHeap(arr); System.out.println("Built Heap Max: " + maxHeap.peek());  }
+    public static void main(String[] args){
+        MaxHeap maxHeap = new MaxHeap(10);
+        maxHeap.insert(10);
+        maxHeap.insert(20);
+        maxHeap.insert(15);
+        maxHeap.insert(30);
+        System.out.println("Max: "+ maxHeap.peek());
+        System.out.println("Extract max: "+ maxHeap.extractMax());
+        System.out.println("New max: "+ maxHeap.peek());
+        int[] arr = {5, 3, 17, 10, 84, 19, 6, 22, 9};
+        maxHeap.buildHeap(arr);
+        System.out.println("Built Heap Max: " + maxHeap.peek());
+
+
+    }
 }

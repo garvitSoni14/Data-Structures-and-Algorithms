@@ -51,7 +51,7 @@ public class Four_Sum {
     }
 
 
-    public static List<List<Integer>> fourSum_BETTER(int[] nums, int target) {
+    public static List<List<Integer>> fourSum_BETTER(int[] nums, int target) {       //{4, 3, 3, 4, 4, 2, 1, 2, 1, 1}, 9
         int n = nums.length; // size of the array
         Set<List<Integer>> st = new HashSet<>();
         for (int i = 0; i < n; i++) {
@@ -60,8 +60,8 @@ public class Four_Sum {
                 for (int k = j + 1; k < n; k++) {
                     // taking bigger data type
                     // to avoid integer overflow:
-                    long sum = nums[i] + nums[j];
-                    sum += nums[k];
+                    long sum = nums[i] + nums[j] +nums[k];
+                   
                     long fourth = target - sum;
                     if (hashset.contains(fourth)) {
                         List<Integer> temp = new ArrayList<>();

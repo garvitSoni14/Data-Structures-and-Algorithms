@@ -24,8 +24,9 @@ public class Two_Sum {
         }
         return new int[] {};
     }
-// TC: O(n)
+// TC: O(n log n)
 // SC: O(1)
+
     public static int[] twoSum_BETTER(int[] arr, int k){
         HashMap<Integer, Integer> mpp = new HashMap<>();
 
