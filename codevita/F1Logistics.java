@@ -1,0 +1,162 @@
+package codevita;
+
+
+//
+//F1 Logistics
+//        Problem Description
+//        The Formula 1 Championship features a series of races held in various cities. The official race calendar for the current season has now been published.
+//
+//        Each race occurs at a designated location (x, y) on a scheduled date. A vehicle may participate in several races, provided it is able to arrive at subsequent events within the required timeframe.
+//
+//        The travel time between two races is determined by the Manhattan distance. Each vehicle travels at a rate of one unit of distance per day. If one race occurs on day d1 and another on day d2 (where d2 > d1), participation in both events is feasible only if d2 - d1 is greater than or equal to the calculated distance. A car may compete in only one race per day, and its starting location can be any event site.
+//
+//        Participation in all races is mandatory. If cars cannot be transported for an event, a backup car is required. Since F1 cars are costly, teams must develop a transport plan and determine the minimum number of cars needed for all events, considering some races may occur simultaneously and one unit of distance can be covered starting on race day.
+//
+//        Determine the minimum number of cars necessary to ensure coverage for all races.
+//
+//        Constraints
+//        1 <= N <= 50
+//
+//        -50 <= (X, Y) <= 50
+//
+//        1 <= Day <= 200
+//
+//        Input
+//        The first line specifies a single integer, N, denoting the total number of races scheduled for the season.
+//
+//        The following line includes three space-separated integers: X and Y, which denote the coordinates of the event location, and DAY, which specifies the scheduled day of the event.
+//
+//        Output
+//        Output a single integer represents the minimum number of cars needed.
+//
+//        Time Limit (secs)
+//        1
+//
+//        Examples
+//        Example 1
+//
+//        Input
+//
+//        4
+//
+//        0 0 1
+//
+//        7 0 2
+//
+//        5 0 10
+//
+//        0 5 11
+//
+//        Output
+//
+//        2
+//
+//        Explanation
+//
+//        In the above input there are 4 races.
+//
+//        Race 1 at (0,0) on day 1, Race 2 at (7,0) on day 2 and so on.
+//
+//        A race car will commence its participation in race 1. Due to distance of 7 units and the limited timeframe of only one day (2 - 1 = 1), it is not feasible for this car to be transported to race 2. Consequently, a separate car will begin in race 2. Subsequently, the vehicles from race 2 will be transferred to race 3, followed by the transportation of the car from race 1 to race 4.
+//
+//        Example 2
+//
+//        Input
+//
+//        6
+//
+//        5 -7 10
+//
+//        3 -11 11
+//
+//        7 -3 2
+//
+//        5 -9 10
+//
+//        7 -6 1
+//
+//        5 -7 1
+//
+//        Output
+//
+//        3
+//
+//        Explanation
+//
+//        In the above input there are 6 races.
+//
+//        Three cars will start from event at (7, -6) on day 1, (5, -7) on day 1 and (7, -3) at day2
+//
+//        The car located at coordinates (7, -6) is scheduled for transport to coordinates (3, -11) on day 11. The car currently located at (5, -7) is scheduled for transport to (5, -9) on day 10. The car originating from coordinates (7, -3) is scheduled for transport to coordinates (5, -7) on day 10. Therefore, a minimum of three cars is required.
+
+
+import java.util.*;
+
+
+
+public class F1Logistics {
+    static class Race {
+        int x, y, d;
+        Race(int x, int y, int d) {
+            this.x = x;
+            this.y = y;
+            this.d = d;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        Race[] races = new Race[N];
+        for (int i = 0; i < N; i++) {
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            int d = sc.nextInt();
+            races[i] = new Race(x, y, d);
+        }
+
+        // Sort by day — ensures directed acyclic order
+        Arrays.sort(races, Comparator.comparingInt(r -> r.d));
+
+        // Build edges: i → j if j can follow i
+        List<Integer>[] edges = new ArrayList[N];
+        for (int i = 0; i < N; i++) edges[i] = new ArrayList<>();
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (races[j].d > races[i].d) {
+                    int dist = Math.abs(races[i].x - races[j].x) + Math.abs(races[i].y - races[j].y);
+                    if (races[j].d - races[i].d >= dist) {
+                        edges[i].add(j);
+                    }
+                }
+            }
+        }
+
+        int[] matchTo = new int[N];
+        Arrays.fill(matchTo, -1);
+        int result = 0;
+
+        for (int u = 0; u < N; u++) {
+            boolean[] visited = new boolean[N];
+            if (dfs(u, edges, matchTo, visited))
+                result++;
+        }
+
+        // Output only the result with no extra newline or spaces
+        System.out.print(N - result);
+    }
+
+    static boolean dfs(int u, List<Integer>[] edges, int[] matchTo, boolean[] visited) {
+        for (int v : edges[u]) {
+            if (!visited[v]) {
+                visited[v] = true;
+                if (matchTo[v] == -1 || dfs(matchTo[v], edges, matchTo, visited)) {
+                    matchTo[v] = u;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
