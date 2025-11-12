@@ -1,6 +1,6 @@
 /*
 QUICK SORT says that:
-Pick an element as Pivot (it can be any number-start/end/mid..., end element in out algorithm),
+Pick an element as Pivot (it can be any number-start/end/mid..., we are taking the end element in our algorithm),
 move all elements which are smaller than the Pivot element to the left and larger elements to the right.
 Do this recursively for both partitions until there is only one element left in the last partition.
  */
