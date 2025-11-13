@@ -3,15 +3,27 @@
 package Array;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 public class Remove_Duplicated_Sorted
 {
     public static void main(String[] args)
     {
-
         int arr[] = {1,1,2,2,2,3,4,5,5,6};
         removeDuplicatedFromSorted(arr);
         System.out.println("Set is : "+ Arrays.toString(arr));
+    }
+
+    public static void removeDuplicatedFromSorted_BRUTEFORCE(int arr[]){
+        HashSet<Integer> res = new HashSet<>();
+        int index= 0;
+        for(int i= 0; i<arr.length; i++){
+            if(!res.contains(arr[i])){
+                res.add(arr[i]);
+                arr[index] = arr[i];
+                index++;
+            }
+        }
 
     }
     public static void removeDuplicatedFromSorted(int arr[])

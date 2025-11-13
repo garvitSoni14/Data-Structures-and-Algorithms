@@ -39,6 +39,22 @@ public class Move_Zeroes_End
             j++;
         }
     }
+    // OR
+    public static void moveZeroesToEnd2(int[] nums) {
+        int j = 0;
+        for(int i = 0; i<nums.length; i++){
+            if(nums[i]!=0){
+                nums[j] = nums[i];
+                j++;
+            }
+        }
+
+        while(j<nums.length){
+            nums[j]=0;
+            j++;
+        }
+
+    }
 }
 // TC: O(n)
 // SC: O(1)

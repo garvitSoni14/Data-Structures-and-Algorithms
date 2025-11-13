@@ -1,5 +1,6 @@
 package Array;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Smallest_Element
@@ -26,5 +27,32 @@ public class Smallest_Element
             }
         }
         return min;
+    }
+
+    public static ArrayList<Integer> minAnd2ndMin(int[] arr) {
+        // code here
+        ArrayList<Integer> res= new ArrayList<>();
+        int s = Integer.MAX_VALUE;
+        int sm = Integer.MAX_VALUE;
+        boolean isupdated = false;
+        for(int i=0; i<arr.length; i++){
+            if(arr[i]<s){
+                sm = s;
+                s = arr[i];
+                if (sm != Integer.MAX_VALUE) isupdated = true;
+
+            }
+            else if(arr[i]<sm && arr[i]>s){
+                sm = arr[i];
+                isupdated = true;
+            }
+        }
+        if(isupdated){
+            res.add(s);
+            res.add(sm);}
+        else res.add(-1);
+
+        return res;
+
     }
 }
