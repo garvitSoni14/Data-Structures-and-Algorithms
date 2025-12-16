@@ -6,40 +6,50 @@ package Array;
 import java.util.*;
 
 public class Next_Permutation {
-    public static List<Integer> nextGreaterPermutation(List<Integer> A) {
-        int n = A.size();
-        int ind = -1;
 
-        // Step 1: Find the break point
-        for (int i = n - 2; i >= 0; i--) {
-            if (A.get(i) < A.get(i + 1)) {
-                ind = i;
+    public static void nextPermutation(int[] nums) {
+        int n = nums.length;
+        int bpIndex = -1;
+        // Breakpoint intex finding...
+        for(int i = n-1; i>0; i--){
+            if(nums[i-1] < nums[i]){
+                bpIndex = i-1;
                 break;
             }
         }
-
-        // Step 2: If no break point, reverse and return
-        if (ind == -1) {
-            Collections.reverse(A);
-            return A;
-        }
-
-        // Step 3: Swap with next greater element on right
-        for (int i = n - 1; i > ind; i--) {
-            if (A.get(i) > A.get(ind)) {
-                Collections.swap(A, i, ind);
-                break;
+        //if no breakpoint
+        if(bpIndex != -1){
+            // finding just greated element than Breakpoint element
+            int swapperIndex = Integer.MAX_VALUE;
+            for(int i = n-1; i>bpIndex; i--){
+                if(nums[i]>nums[bpIndex]){
+                    int temp = nums[bpIndex];
+                    nums[bpIndex] = nums[i];
+                    nums[i] = temp;
+                    break;
+                }
             }
+            reve(nums, bpIndex+1, n-1);
+
         }
+        else if(bpIndex == -1){
+            reve(nums, 0, n-1);
+        }
+    }
 
-        // Step 4: Reverse the suffix
-        Collections.reverse(A.subList(ind + 1, n));
-
-        return A;
+    public static void reve(int[] nums, int start, int end){
+        while(start<=end){
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            end--;
+            start++;
+        }
     }
 
     public static void main(String[] args) {
-        List<Integer> arr = new ArrayList<>(Arrays.asList(1, 2, 3));
-        System.out.println("Next Permutation: " + nextGreaterPermutation(arr));
+        int [] arr = {1, 2, 3};
+        nextPermutation(arr);
+        System.out.println("Next Permutation: " + arr);
     }
 }

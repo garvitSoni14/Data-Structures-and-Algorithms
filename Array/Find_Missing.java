@@ -1,6 +1,6 @@
 // BRUTE FORCE: For each number between 1 to N we will run a for loop and another inner for loop to search for this element in the array. TC: O(n^2), SC: O(1)
-// BETTER APPROACH: Create a new array to store the occurance of each element of arr, then search if any index of the new array is zero and return it, cur itis the element that didnt occured(mising),{remember, the new array should have size = arr.length+1 , this +1 is for consideration of index of the missing element}. TC: O(2n), SC:(n).
-// OPTIMAL APPROACH 1: Store the sum of all the numbersfrom 1 to N in a variable = (N*(N+1))/2,sum up all the elements of array, variable -total of array = missing number. TC: O(n), SC: O(1)
+// BETTER APPROACH: Create a new array to store the occurence of each element of arr, then search if any index of the new array is zero and return it, cur itis the element that didnt occured(mising),{remember, the new array should have size = arr.length+1 , this +1 is for consideration of index of the missing element}. TC: O(2n), SC:(n).
+// OPTIMAL APPROACH 1: Store the sum of all the numbers from 1 to N in a variable = (N*(N+1))/2,sum up all the elements of array, variable -total of array = missing number. TC: O(n), SC: O(1)
 // OPTIMAL APPROACH 2: create a XOR1 and store xor from 1 to N, create another XOR2 and store XOR of elements of arra. and Xor of XOR1 ^ XOR2 will be the answer.
 package Array;
 

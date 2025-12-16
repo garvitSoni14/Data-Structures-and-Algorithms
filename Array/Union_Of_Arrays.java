@@ -1,4 +1,4 @@
-// BRUTE FORCE: ( We can to Collections.sort() for ascending order result) Traverse both arrays one by one and put all the elements inside a Hashmap with will store only unique elements with their frequencies. TC: O(n+m), SC: (n+m)
+// BRUTE FORCE: (For ordered result)( We can to Collections.sort() for ascending order result) Traverse both arrays one by one and put all the elements inside a Hashmap with will store only unique elements with their frequencies. TC: O(n+m), SC: (n+m)
 // BRUTE FORCE: (They are unordered) We can use Hashset which stores only unique elements. TC: O(n+M), SC:O(n+m).
 // OPTIMAL APPROACH : Using two pointers (i,j) pointing to the start of arr1, arr2 respectively.
 package Array;
@@ -30,25 +30,35 @@ public class Union_Of_Arrays {
         return result;
     }
 
-    public static List<Integer> Union(int arr1[], int arr2[]) {
-        List<Integer> union = new ArrayList<>();
+    public static List<Integer> Union(int a[], int b[]) {
+        ArrayList<Integer> union = new ArrayList<>();
         int i = 0, j = 0;
-
-        while(i < arr1.length && j < arr2.length){
-            if(arr1[i] < arr2[j])
-                { if(union.isEmpty() || union.get(union.size()-1) != arr1[i]) union.add(arr1[i]); i++;}
-            else if(arr1[i] > arr2[j])
-                { if(union.isEmpty() || union.get(union.size()-1) != arr2[i]) union.add(arr2[i]); j++;}
-            else if(arr1[i] == arr2[j])
-            { if(union.isEmpty() || union.get(union.size()-1) != arr2[i]) union.add(arr2[i]); i++; j++;}
+        while(i<a.length && j<b.length){
+            if(a[i]<=b[j]){
+                if(union.isEmpty() || union.get(union.size()-1) !=a[i]){
+                    union.add(a[i]);
+                }
+                i++;
+            }
+            else{
+                if(union.isEmpty() || union.get(union.size()-1) !=b[j]){
+                    union.add(b[j]);
+                }
+                j++;
+            }
         }
-        while(i<arr1.length){
-            if(union.isEmpty() || union.get(union.size()-1) != arr1[i]) union.add(arr1[i]); i++;
+        while(i<a.length){
+            if(union.isEmpty() || union.get(union.size()-1) !=a[i]){
+                union.add(a[i]);
+            }
+            i++;
         }
-        while(j<arr2.length){
-            if(union.isEmpty() || union.get(union.size()-1) != arr2[i]) union.add(arr2[i]); j++;
+        while(j<b.length){
+            if(union.isEmpty() || union.get(union.size()-1) !=b[j]){
+                union.add(b[j]);
+            }
+            j++;
         }
-
         return union;
 
     }

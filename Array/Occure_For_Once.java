@@ -11,11 +11,9 @@ public class Occure_For_Once
         System.out.println("The Element that is occuring for once is : " + occurForOnce(arr));
     }
 
-    public static int occurForOnce(int arr[])
-    {
+    public static int occurForOnce(int arr[]) {
         int XOR = 0 ;
-        for(int i =0; i<arr.length; i++)
-        {
+        for(int i =0; i<arr.length; i++) {
             XOR^= arr[i];
         }
         return XOR;
@@ -24,7 +22,6 @@ public class Occure_For_Once
 // SC: O(1)
 
     public static int BRUTEFORCE(int[] arr){
-
         for(int i=0; i<=arr.length-1; i++){
             int freq =0;
             for(int j = 0; j<=arr.length-1; j++){
