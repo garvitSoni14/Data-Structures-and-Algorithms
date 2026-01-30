@@ -3,23 +3,31 @@
 // OPTIMAL APPROACH: We can store the Xor of all the elements into a XOR variable and return it.
 package Array;
 
+import java.util.HashMap;
+
 public class Occure_For_Once
 {
     public static void main(String[] args)
     {
         int arr[] = {1,1,2,2,3,3,4,4,5,5,8,8,6,6,7,7,9};
-        System.out.println("The Element that is occuring for once is : " + occurForOnce(arr));
+        System.out.println("The Element that is occuring for once is : " + occurForOnceHashmap(arr));
     }
 
     public static int occurForOnce(int arr[]) {
-        int XOR = 0 ;
-        for(int i =0; i<arr.length; i++) {
-            XOR^= arr[i];
-        }
-        return XOR;
+        int xor=0;
+        for(int i:arr) xor^=i;
+        return xor;
     }
 // TC: O(n)
 // SC: O(1)
+    public static int occurForOnceHashmap(int [] arr){
+        int n = arr.length;
+        HashMap<Integer, Integer> h = new HashMap<>();
+        for(int i: arr){
+            h.put(h.getOrDefault(i,0)+1,i );
+        }
+        return h.get(1);
+    }
 
     public static int BRUTEFORCE(int[] arr){
         for(int i=0; i<=arr.length-1; i++){

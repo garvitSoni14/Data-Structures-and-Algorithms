@@ -12,38 +12,29 @@ public class Quick_Sort {
 
     public static void main(String[] args) {
 
-        int[] a = {64, 25, 12, 22, 11};
+        int[] a = {7,8,3,2,1,0};
         quick_sort(a,0,a.length-1);
         System.out.println(Arrays.toString(a));
     }
 
-    public static void quick_sort(int[] arr, int start, int end)
-    {
-        if(start<end)
-        {
-            int pivot = partition(arr, start, end);
-            quick_sort(arr,start,pivot-1);
-            quick_sort(arr, pivot+1, end);
-
+    public static void quick_sort(int [] arr,int start, int end){
+        if(start<end){
+            int partitionElement = partition(arr, start, end);
+            quick_sort(arr, start, partitionElement-1);
+            quick_sort(arr, partitionElement+1, end);
         }
+        return ;
     }
-    public static int partition(int [] arr, int start, int end) {
-        int index = start - 1;
-        int pivotElement = arr[end];
-        for (int j = start; j <= end-1; j++) {
-            if (arr[j] <= pivotElement) {
-                index++;
-                int temp = arr[index];
-                arr[index] = arr[j];
-                arr[j] = temp;
-            }
-
+    public static int partition(int []arr, int start, int end){
+        int pivot = start;
+        int i = start, j = end;
+        while(i<j){
+            while(arr[i]<=arr[pivot] && (i<=end)) i++;
+            while(arr[j]>arr[pivot] && (j>=start)) j--;
+            if(i<j) swap(arr,i, j);
         }
-        index++;
-        int temp = arr[index];
-        arr[index] = arr[end];
-        arr[end] = temp;
-        return index;
+        if(i>j) swap(arr, pivot, j);
+        return j;
     }
 
     public static void swap(int[] arr, int x, int y)

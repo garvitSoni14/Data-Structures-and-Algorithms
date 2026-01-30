@@ -9,7 +9,24 @@ import java.util.Arrays;
 public class Find_Missing_And_Repeating {
     public static void main(String [] args){
         int [] sample = {1,2,3,4,5,5,6,7};
-        System.out.println(Arrays.toString(findMissingRepeating(sample)));
+        System.out.println(Arrays.toString(rmb(sample)));
+    }
+
+    public static int[] rmb(int[] arr){
+        int size=-1 ;
+        for(int i:arr) size = Math.max(size, i);
+        int store[] = new int [size];
+
+        for(int i=0; i< store.length; i++){
+            store[arr[i]]++;
+        }
+        int res[] = new int[2];
+        for(int i=0; i< store.length; i++){
+            if(store[i]==2) res[1] = i;
+            if(store[i]==0) res[0] = i;
+        }
+        if(res[0] == 0) res[0]= size+1;
+        return res;
     }
 
     public static int[] findMissingRepeating(int []nums){

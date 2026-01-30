@@ -32,6 +32,7 @@ public class Max_SubArray_KSumPandN
                 mp.put(prefixSum,i);
             }
         }
+        System.out.println(mp.toString());
         return maxlength;
     }
 }

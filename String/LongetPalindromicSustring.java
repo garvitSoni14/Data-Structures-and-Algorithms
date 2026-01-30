@@ -1,6 +1,6 @@
 package String;
 
-public class LongetPalindromicSustring
+public class  LongetPalindromicSustring
 {
     public static void main(String[] args)
     {

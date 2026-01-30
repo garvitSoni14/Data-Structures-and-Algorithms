@@ -20,8 +20,8 @@ public class Merge_Sort {
     {
         if (start >= end) return;
         int mid = start + (end - start) / 2;
-        mergeSort(arr,start, mid);
-        mergeSort(arr, mid+1,end);
+        mergeSort(arr, start, mid);
+        mergeSort(arr, mid + 1, end);
         conquer(arr, start, mid, end);
     }
 
