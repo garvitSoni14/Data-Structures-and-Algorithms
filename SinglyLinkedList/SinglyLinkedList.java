@@ -1,370 +1,422 @@
 package SinglyLinkedList;
 
+import java.util.*;
+
 class Node{
     int data;
     Node next;
-
-    public Node(int data) {this.data=data; this.next=null;}
-
-    public int getData() {return data;}
-
-    public Node getNext() {return next;}
-
-    public void setNext(Node next) {this.next = next;}
+    Node(int data){
+        this.data = data;
+        this.next = null;
+    }
 }
 
-class SinglyLinkedList {
-    private Node head;
-    private Node tail;
-    private int size;
+class LL{
+    Node head = null;
+    Node tail = null;
+    int size = 0;
 
-    public SinglyLinkedList() {
-        this.head = null;
-        this.tail = null;
-        this.size = 0;
+    public void add(Node node){
+        if(head == null) { head = tail = node;   size++;  }
+        else {  tail.next = node; tail = node;  size++;  }
     }
-
-//..................................................................................................
-
-    public void insertAtBeginning(int data) {
-        Node newNode = new Node(data);
-        newNode.setNext(head);
-        head = newNode;
-        if (tail == null) tail = head;
-        size++;
-    }
-
-//..................................................................................................
-
-    public void insertAtEnd(int data) {
-        Node newNode = new Node(data);
-        if (head == null) {
-            head = tail = newNode;
+    public void addToStart(Node node){
+        if(head ==null){head = tail = node; size++; }
+        else{
+            node.next = head;
+            head = node;
             size++;
-            return;
         }
-        tail.setNext(newNode);
-        tail = newNode;
+
+    }
+    public void addInBetween(Node node, int index){
+        if(index < 0 || index> size) { System.out.println("Invalid Index"); return; }
+        if(index == 0) { addToStart(node); return; }
+        if(index == size){  add(node); return; }
+
+        Node prev = head;
+        for(int i=0; i<index-1; i++){
+            prev = prev.next;
+        }
+        node.next = prev.next;
+        prev.next = node;
         size++;
+
     }
 
-//..................................................................................................
-
-    public void insertAtPosition(int position, int data) {
-        if (position > size || size < 0) {
-            System.out.println("Invalid position");
-            return;
+    public void deleteFromEnd(){
+        if(head == null) return;
+        if(head == tail) { head = tail = null; size--; return; }
+        Node temp = head;
+        while(temp.next!=tail){
+            temp = temp.next;
         }
-        if (position == size) {
-            insertAtEnd(data);
-            size++;
-            return;
-        }
-        if (position == 0) {
-            insertAtBeginning(data);
-        }
-        else {
-            Node newNode = new Node(data);
-            Node counter = head;
-            for (int i = 0; i < position - 1; i++) {
-                counter = counter.getNext();
+        temp.next = null;
+        tail = temp;
+        size--;
+    }
+    public void deleteFromStart(){
+        if(head == null) return;
+        if(head == tail) { head = tail = null; size--; return; }
+        Node temp = head;
+        head = head.next;
+        temp.next=null;
+        size--;
+    }
+    public void deleteFromIndex(int index){
+        if(index<0 || index>=size) { System.out.println("Invalid index"); return; }
+        if(head == tail){ head = tail = null; size--; return; }
+        if(index == 0) { deleteFromStart(); return; }
+        if(index == size-1) {deleteFromEnd(); return; }
+        if(index<size){
+            Node prev = head;
+            for(int i=1; i<index-1; i++){
+                prev = prev.next;
             }
-            newNode.setNext(counter.getNext());
-            counter.setNext(newNode);
-        }
-        size++;
-    }
-
-//..................................................................................................
-
-    public void deleteByValue(int value) {
-        if (head == null) return;
-
-        if (head.getData() == value) {
-            head = head.getNext();
-            if (head == null) tail = null;
+            prev.next = prev.next.next;
             size--;
-            return;
         }
-        Node counter = head;
-        while (counter.getNext() != null && counter.getNext().getData() != value) {
-            counter = counter.getNext();
-        }
-        if (counter.getNext() == null) {
-            System.out.println("Value not found");
-            return;
-        }
-        counter.setNext(counter.getNext().getNext());
-        if (counter.getNext() == null) tail = counter;
-        size--;
+        return;
     }
 
-//..................................................................................................
-
-    public void deleteByPosition(int position) {
-        if (head == null) {
-            System.out.println("List is empty");
-            return;
-        }
-        if (position > size || position < 0) {
-            System.out.println("Invalid Position");
-            return;
-        }
-        if(position == 0)
-        {
-            head = head.getNext();
-            size--;
-            return;
-        }
-        Node counter = head;
-        for(int i= 0; i<position-1;i++)
-        {
-            counter = counter.getNext();
-        }
-        counter.setNext(counter.getNext().getNext());
-        if(counter.getNext()==null){tail = counter;}
-        size--;
-    }
-
-//..................................................................................................
-
-    public void deleteFromBeginning()
-    {
-        head = (head.getNext());
-        size--;
-    }
-
-//..................................................................................................
-
-    public void deleteFromEnd()
-    {
-        Node counter = head;
-        int pointer = 0;
-        while(pointer<size-1)
-        {
-            counter = null;
-            pointer++;
-        }
-        size--;
-    }
-
-//..................................................................................................
-
-    public int search(int key)
-    {
-        Node counter = head;
-        int index = 0;
-        while (counter.getNext() !=null)
-        {
-            index+=1;
-
-            if(counter.getData() == key)
-            {
-                return index;
-            }counter = counter.getNext();
-
+    public int searchFor(int key){
+        if(head == null) return -1;
+        Node temp = head;
+        int keyIndex = 1;
+        while(temp != null){
+            if(temp.data == key){
+                return keyIndex;
+            }
+            keyIndex++;
+            temp  =temp.next;
         }
         return -1;
     }
 
-//..................................................................................................
+    public int size(){ return this.size;}
 
-    public int middle()
-    {
-        Node slow=head;
-        Node fast=head;
-        while(fast!=null&&fast.getNext()!=null)
-        {
-            slow = slow.getNext();
-            fast = fast.getNext().getNext();
+    public int middleElement(){
+        if(head==null) return -1;
+        if(head ==tail) return head.data;
+        Node tortoise=head;
+        Node hare = head;
+        while(tortoise.next!=null && tortoise.next.next != null){
+            tortoise = tortoise.next.next;
+            hare = hare.next;
         }
-        return slow.getData();
+        return hare.data;
     }
 
-//..................................................................................................
-
-    public Node revIter(Node initial)
-    {
-        Node prev = null, current = initial, nextt;
-        while(current != null)
-        {
-            nextt = current.getNext();
-            current.setNext(prev);
-            prev = current;
-            current = nextt;
+    public void reverse(){
+        if(head == null) return ;
+        if(head == tail) return ;
+        Node prev = null;
+        Node temp =head;
+        while(temp!= null){
+            Node front =temp.next;
+            temp.next = prev;
+            prev = temp;
+            temp = front;
         }
         head = prev;
-        return head;
     }
 
-//..................................................................................................
-
-    public Boolean detectLoop()
-    {
-        Node slow=head, fast=head;
-        while(fast!=null && fast.getNext()!=null)
-        {
-            slow = slow.getNext();
-            fast = fast.getNext().getNext();
-            if(fast==slow){return true;}
+    public boolean detectCycle(){
+        if(head == null) return false;
+        Node fast = head, slow = head;
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+            if(fast == slow) return true;
         }
         return false;
     }
 
-//..................................................................................................
+//    public boolean detectCycle(){
+//        HashSet<Node> visited = new HashSet<>();
+//        if(head == null) return false;
+//        Node temp= head;
+//        while(temp!=null){
+//            if(visited.contains(temp)) return true;
+//            visited.add(temp);
+//        }
+//        return false;
+//    }
 
-    public Node DetectStartOfLoop()
-    {
-        Node slow = head ,  fast = head;
-        while(fast!=null && fast.next!=null)
-        {
-            slow = slow.getNext();
-            fast = fast.getNext().getNext();
-            if(slow==fast)
-            {
+    public Node startOfCycle() {
+        if(head == null) return null;
+        Node fast = head, slow= head;
+        while(fast!=null && fast.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if(slow == fast) {
                 slow = head;
-                while(slow!=fast)
-                {
-                    slow = slow.getNext();
-                    fast = fast.getNext();
+                while(slow !=fast){
+                    slow = slow.next;
+                    fast = fast.next;
                 }
                 return slow;
             }
         }
         return null;
     }
+//    public Node startOfCycle(){
+//            HashSet<Node> visited = new HashSet<>();
+//            if(head == null) return null;
+//            Node temp= head;
+//            while(temp!=null){
+//                if(visited.contains(temp)) return temp;
+//                visited.add(temp);
+//            }
+//            return null;
+//        }
 
-//..................................................................................................
-
-    public Boolean isPalindrome(Node head)
-    {
-        if(head == null || head.next == null) return  true;
-        Node slow = head, fast = head;
-        while(fast!=null && fast.next!=null)
-        {
-            slow = slow.getNext();
-            fast = fast.getNext();
+    public int lengthOfCycle(){
+        int length = 0;
+        Node start= this.startOfCycle();
+        Node temp = start.next;
+        while(temp!=start){
+            length++;
+            temp= temp.next;
         }
-        Node secondHalf = revIter(slow);
-        Node temp2 = secondHalf;
-        Node temp1 = head;
-        while(temp2!=null)
-        {
-            if(temp1.getData() != temp2.getData())
-            {
-                revIter(temp2);
+        return length;
+    }
+
+    public boolean isPalindrome(){
+        if(head == null || head == tail) return true;
+
+//         finding middle node
+        Node tortoise = head, hare = head;
+        while(hare.next!=null && hare.next.next!=null){
+            tortoise = tortoise.next;
+            hare = hare.next.next;
+        }
+        Node secondHalf = reverseLL(tortoise.next);
+        Node first = head, second = secondHalf;
+        while(second!=null){
+            if(first.data != second.data){
                 return false;
             }
-            temp1 = temp1.getNext();
-            temp2 = temp2.getNext();
+            first = first.next;
+            second= second.next;
         }
-        revIter(secondHalf);
         return true;
     }
 
-//..................................................................................................
-
-    public void printList(Node initializer)
-    {   Node count = initializer;
-        while(count != null)
-        {
-            System.out.print(count.getData()+"->");
-            count = count.getNext();
+    public Node reverseLL(Node node){
+        Node prev = null;
+        while(node != null){
+            Node next = node.next;
+            node.next = prev;
+            prev = node;
+            node = next;
         }
-        System.out.println("null");
+        return prev;
     }
 
-//..................................................................................................
-
-    public Node seggregateEvenOdd(Node head)
-    {
-        Node oddHead = new Node(-1), oddTail = oddHead;
-        Node evenHead = new Node(-1), evenTail= evenHead;
-        Node current = head, temp;
-        while(current!=null)
-        {
-            temp = current;
-            current = current.getNext();
-            temp.setNext(null);
-
-            if(temp.getData() %2 !=0)
-            {
-                oddTail.setNext(temp);
-                oddTail = temp;
+    public Node seggregateLL(){
+        if(head == null ) return null;
+        if(head == tail) return head;
+        Node evenHead = null, evenTail = null, oddHead = null,oddTail = null, current = head;
+        while(current != null){
+            if(current.data % 2 == 0){
+                if(evenHead == null){
+                    evenHead = current;
+                    current = current.next;
+                }
+                else{
+                    evenTail.next = current;
+                    evenTail = current;
+                }
             }
-            else {
-                evenTail.setNext(temp);
-                evenTail = temp;
+            else{
+                if(oddHead == null){
+                    oddHead = current;
+                    oddTail = current;
+                }
+                else{
+                    oddTail.next = current;
+                    oddTail = current;
+                }
             }
+            current = current.next;
         }
-        evenTail.setNext(oddHead.next);
-        return evenHead.getNext();
-
+        if(evenHead == null) return oddHead;
+        if(oddHead == null) return evenHead;
+        evenTail.next = oddHead;
+        oddTail.next = null;
+        return evenHead;
     }
 
-//..................................................................................................
+    public void deleteFromEnd(int n){
+        Node dummy = new Node(0);
+        dummy.next = head;
+        Node fast = dummy, slow = dummy;
+        for(int i = 0;i < n; i++){ fast = fast.next; }
+        while(fast.next != null){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        slow.next =slow.next.next;
+        head= dummy.next;
+        size--;
+    }
 
-public Node seggregate()
+//    public void deleteFromEnd(int n){
+//        int index = this.size - n + 1;
+//        Node temp = head;
+//        for(int i = 1; i<index-1; i++){ temp = temp.next; }
+//        temp.next = temp.next.next;
+//        size--;
+//    }
+
+    public void deleteMiddle(){
+        if(head == null) return ;
+        if(head == tail) { head = tail = null; size--; }
+        Node fast = head.next.next;
+        Node slow = head;
+        while(fast.next != null && fast.next.next!= null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+//        System.out.println(slow.data);
+        slow.next = slow.next.next;
+        size--;
+        return;
+    }
+
+//    public void sortLL(){
+//        if(head == null) return ;
+//        List<Integer> list = new ArrayList<>();
+//        Node temp = head;
+//        while(temp!=null) {
+//            list.add(temp.data);  temp = temp.next;
+//        }
+//        Collections.sort(list);
+//        temp = head;
+//        int i = 0;
+//        while(temp!=null ){
+//            temp.data= list.get(i);
+//            i++;
+//            temp = temp.next;
+//        }
+//        return;
+//    }
+
+    public Node findIntersection(LL l2){
+        HashSet<Node> hashSet = new HashSet<>();
+        Node temp = this.head;
+        while(temp!=null){
+            hashSet.add(temp);
+            temp = temp.next;
+        }
+        temp = l2.head;
+        while(temp != null){
+            if(hashSet.contains(temp)) return temp;
+            temp = temp.next;
+        }
+        return null;
+    }
+
+//    public Node findIntersection(LL l2){
+//        Node head1 = this.head;
+//        while(head1 != null){
+//            Node head2 = l2.head;
+//            while(head2 != null){
+//                if(head1 == head2) return head1;
+//                head2 = head2.next;
+//            }
+//            head1 = head1.next;
+//        }
+//        return null;
+//    }
+
+    public Node add1(){
+        int carry = recursive(head);
+        if(carry == 1){
+            Node newHead = new Node(1);
+            newHead.next = head;
+            return newHead;
+        }
+        return head;
+    }
+    private int recursive(Node node){
+        if(node == null) return 1;
+        int carry = recursive(node.next);
+        int sum = node.data + carry;
+        node.data = sum%10;
+        return sum/10;
+    }
+
+//    public Node add1(){
+//        long num = 0;
+//        Node temp = head;
+//        while(temp != null){
+//            num = num*10 + temp.data;
+//            temp =temp.next;
+//        }
+//        num = num+1;
+//        String s = Long.toString(num);
+//        Node dummy = new Node(0);
+//        temp = dummy;
+//        for(char c: s.toCharArray()){
+//            temp.next = new Node(c-'0');
+//            temp = temp.next;
+//        }
+//        return dummy.next;
+//    }
+
+    public Node addTwoNumbers(Node l2){
+        Node l1 = this.head;
+        Node dummy = new Node(0);
+        Node temp = dummy;
+        int carry = 0;
+        while(l1 != null || l2 != null || carry != 0){
+            int sum=0;
+            if(l1 != null){
+                sum += l1.data;
+                l1 = l1.next;
+            }
+            if(l2 != null){
+                sum += l2.data;
+                l2 = l2.next;
+            }
+            Node node = new Node(sum % 10);
+            temp.next = node;
+            temp = temp.next;
+        }
+        return dummy.next;
+    }
+
+    public void printLL(){
+        Node temp = head;
+        while(temp!=null){System.out.print(temp.data+" -> "); temp = temp.next;}
+    }
+
+}
+public class SinglyLinkedList
 {
-    Node oddHead = new Node(-1), oddTail = oddHead;
-    Node evenHead = new Node(-1), evenTail= evenHead;
-    Node current = head, temp;
-    int ind=1;
-    while(current!=null)
-    {
-        temp = current;
-        current = current.getNext();
-        temp.setNext(null);
+    public static void main(String[] args) {
+        LL l = new LL();
+        l.add(new Node(1));
+        l.add(new Node(2));
+        l.add(new Node(3));
 
-        if(ind %2 !=0)
-        {
-            oddTail.setNext(temp);
-            oddTail = temp;
-        }
-        else {
-            evenTail.setNext(temp);
-            evenTail = temp;
-        }
-    }
-    evenTail.setNext(oddHead.next);
-    return evenHead.getNext();
 
-}
+        LL l2 = new LL();
+        l2.add(new Node(1));
+        l2.add(new Node(2));
+        l2.add(new Node(3));
 
-//..................................................................................................
 
-    public void lengthSLL()
-    {
-        System.out.println(this.size);
-    }
+        LL l3= new LL();
+        l3.head = l.addTwoNumbers(l2.head);
+        l3.printLL();
 
-//..................................................................................................
 
-    public static void main(String[] args)
-    {
-        SinglyLinkedList g = new SinglyLinkedList();
-        g.insertAtBeginning(12);
-        g.insertAtEnd(12);
-        g.insertAtEnd(45);
-        g.insertAtPosition(0,45);
 
-        g.printList(g.head);
-        g.lengthSLL();
 
-//        g.deleteByPosition(2);
-//        g.deleteFromBeginning();
-//        g.deleteFromEnd();
-//        g.printList(g.head);
-//        System.out.println(g.search(45));
 
-//        System.out.println(g.middle());
-
-//        g.printList(g.revIter(g.head));
-//        System.out.println(g.isPalindrome(g.head));
-        g.printList(g.seggregateEvenOdd(g.head));
-
-//
-//        g.printList(head);
     }
 }
-
