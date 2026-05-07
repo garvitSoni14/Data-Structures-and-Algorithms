@@ -22,6 +22,8 @@ public class Check_Palindrome {
 
     // MOstOptimal one:
     public static boolean isPalindrome2(int x) {
+//        x<0 (Negative number is never a palindrom)
+//        x%10 && x!= 0 (All numbers ending with zero , excluding 0 itself is also not a palindrome)
         if (x < 0 || (x % 10 == 0 && x != 0)) return false;
         int reversedHalf = 0;
         while (x > reversedHalf) {
