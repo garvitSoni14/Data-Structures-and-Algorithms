@@ -12,35 +12,36 @@ public class Longest_Subarray_With_Sum_0 {
         System.out.println(longestSubarray(arr));
     }
 
-    public static int longestSubarray(int [] arr){
-        HashMap<Integer, Integer> mp = new HashMap<>();
-        int max=Integer.MIN_VALUE, sum=0;
-        for(int i=0; i<arr.length; i++){
-            sum+=arr[i];
-            if(sum==0) max = i+1;
-            else{
-                if(mp.get(sum)!=null)max = Math.max(max, i-mp.get(sum));
-                else mp.put(sum, i);
+    public static int longestSubarray(int [] arr) {
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        int maxlen = 0, sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+            if (sum == 0) maxlen = i + 1;
+            if (hm.containsKey(sum)) {
+                maxlen = Math.max(maxlen, i - hm.get(sum));
+            } else {
+                hm.put(sum, i);
             }
+
         }
-        return max;
+        return maxlen;
     }
 // TC: O(n)
 // SC: O(n)
 
 
-
-    public static int longestSubarray_BRUTEFORCE(int [] arr){
-        int max= Integer.MIN_VALUE;
-        for(int i=0; i<arr.length; i++){
-            int sum=arr[i];
-            for(int j=i+1; j<arr.length; j++){
-                sum+=arr[j];
-                if(sum==0){
-                    max = Math.max(max, j-i+1);
+        public static int longestSubarray_BRUTEFORCE( int[] arr){
+            int max = Integer.MIN_VALUE;
+            for (int i = 0; i < arr.length; i++) {
+                int sum = arr[i];
+                for (int j = i + 1; j < arr.length; j++) {
+                    sum += arr[j];
+                    if (sum == 0) {
+                        max = Math.max(max, j - i + 1);
+                    }
                 }
             }
+            return max;
         }
-        return max;
     }
-}

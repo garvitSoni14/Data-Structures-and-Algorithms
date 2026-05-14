@@ -1,5 +1,5 @@
 // LEETCODE: 60
-//TC: O(n), SC: O(n^2)
+// TC: O(n), SC: O(n^2)
 // SC: O(n)
 
 package BasicMaths;
@@ -15,7 +15,7 @@ public class Permutation_Sequence {
     public static String getPermutation(int n, int k) {
         List<Integer> nums = new ArrayList<>();
         int [] fact = new int [n];
-        for(int i = 1; i<=n;i++) nums.add(i);
+        for(int i = 1; i <= n; i++) nums.add(i);
         fact[0]=1;
         for(int i = 1;i<n; i++) fact[i]=fact[i-1]*i;
         k--;

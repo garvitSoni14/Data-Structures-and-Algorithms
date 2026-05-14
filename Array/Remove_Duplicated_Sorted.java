@@ -26,17 +26,17 @@ public class Remove_Duplicated_Sorted
         }
 
     }
-    public static void removeDuplicatedFromSorted(int arr[])
-    {   int j = 0;
-        for(int i=1; i<arr.length; i++)
-        {
-            if (arr[i] != arr[j])
-            {
+    public static int[] removeDuplicatedFromSorted(int arr[])
+    {
+        int j = 0;
+        for(int i=1;i<arr.length; i++){
+            if(arr[j]!=arr[i]){
                 j++;
                 arr[j] = arr[i];
             }
         }
-        System.out.println(j+1);
+        int res[] = Arrays.copyOfRange(arr,0,j+1);
+        return res;
     }
 
 }

@@ -22,24 +22,19 @@ public class Second_Largest_Element
         System.out.println("The second largest element is : "+secondLargestElement(arr));
     }
 
-    public static int secondLargestElement(int arr[])
-    {
-        int largest = arr[0];
-        int secondLargest = arr[1];
-        for(int i=0; i<arr.length; i++)
-        {
-            if(largest<arr[i])
-            {
-                secondLargest = largest;
-                largest = arr[i];
-
+    public static int secondLargestElement(int arr[]) {
+        if (arr.length < 2) return -1;
+        int l = Integer.MIN_VALUE, sl = Integer.MIN_VALUE;
+        for (int i = 0; i < arr.length; i++) {
+            if (l < arr[i]) {
+                sl = l;
+                l = arr[i];
             }
-            else if(secondLargest < arr[i] && arr[i] < largest)
-            {
-                secondLargest = arr[i];
+            if (sl < arr[i] && arr[i] < l) {
+                sl = arr[i];
             }
         }
-        return secondLargest;
+        return sl == Integer.MIN_VALUE ? -1 : sl;
     }
 }
 

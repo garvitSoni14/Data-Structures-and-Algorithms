@@ -11,8 +11,9 @@ import java.util.Arrays;
 public class Quick_Sort {
 
     public static void main(String[] args) {
+        
 
-        int[] a = {7,8,3,2,1,0};
+        int[] a = {200,21,45,28,64};
         quick_sort(a,0,a.length-1);
         System.out.println(Arrays.toString(a));
     }
@@ -20,20 +21,20 @@ public class Quick_Sort {
     public static void quick_sort(int [] arr,int start, int end){
         if(start<end){
             int partitionElement = partition(arr, start, end);
-            quick_sort(arr, start, partitionElement-1);
+            quick_sort(arr, start, partitionElement-1); 
             quick_sort(arr, partitionElement+1, end);
         }
         return ;
     }
     public static int partition(int []arr, int start, int end){
-        int pivot = start;
+        int pivot = arr[start];
         int i = start, j = end;
         while(i<j){
-            while(arr[i]<=arr[pivot] && (i<=end)) i++;
-            while(arr[j]>arr[pivot] && (j>=start)) j--;
+            while(arr[i]<=pivot && (i<end)) i++;
+            while(arr[j]>pivot && (j>start)) j--;
             if(i<j) swap(arr,i, j);
         }
-        if(i>j) swap(arr, pivot, j);
+        swap(arr, start, j);
         return j;
     }
 
