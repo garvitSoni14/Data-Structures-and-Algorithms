@@ -3,7 +3,8 @@
 //OPTIMAL APPROACH: (KADANE-ALGORITHM) At each index, we decide to either extend the previous subarray or start a new one, and update the maximum seen so far.
 package Array;
 
-public class Max_Subarray_Sum_KADANE {
+public class
+Max_Subarray_Sum_KADANE {
 
     public static void main(String[] args){
         int [] sample = {-2,1,-3,4,-1,2,1,-5,4};

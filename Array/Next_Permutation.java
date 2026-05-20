@@ -17,7 +17,8 @@ public class Next_Permutation {
                 break;
             }
         }
-        //if no breakpoint
+        //if  breakpoint exists
+
         if(bpIndex != -1){
             // finding just greated element than Breakpoint element
             int swapperIndex = Integer.MAX_VALUE;

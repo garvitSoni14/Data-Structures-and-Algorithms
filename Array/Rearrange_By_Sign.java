@@ -1,5 +1,5 @@
 // BRUTEFORCE: Segregate positives and negatives in 2 different arrays, then take a new array and alternatively store positive and negative elements in the array, + -> 2(i)th position, - -> 2(i+1)th position. TC: O(2n), SC: O(2n).
-// BETTER APPROACH: Use a result aray and every time a + element comes, place it at even position and - element at odd positions. TC: O(n), SC: O(n).
+// BETTER APPROACH: Use a result array and every time a + element comes, place it at even position and - element at odd positions. TC: O(n), SC: O(n).
 package Array;
 
 import java.util.Arrays;
@@ -10,8 +10,6 @@ public class Rearrange_By_Sign {
         int [] sample = {1,2,-4,-5};
         System.out.println(Arrays.toString(seggregatePN_BETTERAPPROACH(sample)));
     }
-
-
 
 // TC: O(n)
 // SC: O(1)s
